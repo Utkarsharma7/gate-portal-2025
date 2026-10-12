@@ -24,12 +24,13 @@ const app = express();
 const port = process.env.PORT || 3000;
 // Database Connection
 connect();
+app.set("trust proxy", 1);
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "views")));
 app.use(
   session({
-    secret: "secret-key-ds",
+    secret: process.env.SESSION_SECRET || "secret-key-ds",
     resave: false,
     saveUninitialized: true,
     cookie: {
